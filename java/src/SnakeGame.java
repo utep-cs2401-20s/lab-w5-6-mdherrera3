@@ -30,9 +30,7 @@ public class SnakeGame {
         result = new int [] {x,y, length};
         return result;
     }
-    public int[] findTailRecursive(){
-
-    }
+    public int[] findTailRecursive(){ }
     private int[] findTailRecursively(int[] currentPosition, int[] previousPosition){}
     private void resetCounter(){
         exhaustiveChecks = 0;
