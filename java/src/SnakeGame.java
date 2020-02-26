@@ -13,8 +13,9 @@ public class SnakeGame {
         game = g;
     }
     public int[] findTailExhaustively(){
-        int x;
-        int y;
+        resetCounter();
+        int x = 0;
+        int y = 0;
         int length = 0;
         int[] result;
         for(int i = 0; i < game.length; i++){
@@ -22,21 +23,56 @@ public class SnakeGame {
                 int counter = 0;
                 exhaustiveChecks++;
                 if(game[i][q]){
-                    if(this.game[i][q+1]){
-                        counter++;
+                    if(i == 0 && q == 0) {
+                        if(this.game[i][q+1]){
+                            counter++;
                     }
-                    if(this.game[i+1][q]){
-                        counter++;
+                        if(this.game[i+1][q]){
+                            counter++;
+                        }
+
                     }
-                    if(this.game[i-1][q]){
-                        counter++;
+                    else if(i == game.length - 1 && q == 0){
+                        if(this.game[i][q+1]){
+                            counter++;
+                        }
+                        if (this.game[i - 1][q]) {
+                            counter++;
+                        }
                     }
-                    if(this.game[i][q-1]){
-                        counter++;
+                    else if(i == 0 && q == game[i].length){
+                        if (this.game[i +1][q]) {
+                            counter++;
+                        }
+                        if (this.game[i][q - 1]) {
+                            counter++;
+                        }
+                    }
+                    else if(i == game.length - 1 && q == game[i].length){
+                        if (this.game[i - 1][q]) {
+                            counter++;
+                        }
+                        if (this.game[i ][q - 1]) {
+                            counter++;
+                        }
+                    }
+                    else{
+                        if (this.game[i - 1][q]) {
+                            counter++;
+                        }
+                        if (this.game[i + 1][q]) {
+                            counter++;
+                        }
+                        if (this.game[i][q - 1]) {
+                            counter++;
+                        }
+                        if (this.game[i ][q + 1]) {
+                            counter++;
+                        }
                     }
                     if(counter > 0){
                         length++;
-                        if(counter == 1 && i !=  headPosition[0] && q != headPosition[1]){
+                        if(counter == 1 && (i !=  headPosition[0] || q != headPosition[1])){
                             x = i;
                             y = q;
                         }
@@ -48,19 +84,24 @@ public class SnakeGame {
         return result;
     }
     public int[] findTailRecursive(){
-
+        resetCounter();
+        findTailRecursively(headPosition,headPosition);
     }
     private int[] findTailRecursively(int[] currentPosition, int[] previousPosition{
+        recursiveChecks++;]
+        int a = currentPosition[0];
+        int b = currentPosition[1];
 
+        findTailRecursively(previousPosition,);
     }
     private void resetCounter(){
         exhaustiveChecks = 0;
         recursiveChecks = 0;
     }
-    private static int getRecursiveChecks(){
+    public static int getRecursiveChecks(){
         return recursiveChecks;
     }
-    private static int getExhaustiveChecks(){
+    public static int getExhaustiveChecks(){
         return exhaustiveChecks;
     }
 
