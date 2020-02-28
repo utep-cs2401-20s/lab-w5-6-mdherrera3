@@ -52,7 +52,51 @@ public class SnakeGame {
                         if (this.game[i - 1][q]) {
                             counter++;
                         }
-                        if (this.game[i ][q - 1]) {
+                        if (this.game[i][q - 1]) {
+                            counter++;
+                        }
+                    }
+                    else if(i == 0){
+                        if(this.game[i + 1][q]){
+                            counter++;
+                        }
+                        if(this.game[i][q - 1]){
+                            counter++;
+                        }
+                        if(this.game[i][q + 1]){
+                            counter++;
+                        }
+                    }
+                    else if(i == game.length -1){
+                        if(this.game[i - 1][q]){
+                            counter++;
+                        }
+                        if(this.game[i][q - 1]){
+                            counter++;
+                        }
+                        if(this.game[i][q + 1]){
+                            counter++;
+                        }
+                    }
+                    else if(q == 0){
+                        if(this.game[i][q + 1]){
+                            counter++;
+                        }
+                        if(this.game[i + 1][q]){
+                            counter++;
+                        }
+                        if(this.game[i - 1][q]){
+                            counter++;
+                        }
+                    }
+                    else if(q == game.length -1){
+                        if(this.game[i + 1][q]){
+                            counter++;
+                        }
+                        if(this.game[i][q - 1]){
+                            counter++;
+                        }
+                        if(this.game[i - 1][q]){
                             counter++;
                         }
                     }
@@ -81,18 +125,56 @@ public class SnakeGame {
             }
         }
         result = new int [] {x,y, length};
+        System.out.print(getExhaustiveChecks());
+
         return result;
     }
     public int[] findTailRecursive(){
         resetCounter();
-        findTailRecursively(headPosition,headPosition);
+        int[] tail = findTailRecursively(headPosition,headPosition);
+        return tail;
     }
-    private int[] findTailRecursively(int[] currentPosition, int[] previousPosition{
-        recursiveChecks++;]
-        int a = currentPosition[0];
-        int b = currentPosition[1];
+    private int[] findTailRecursively(int[] currentPosition, int[] previousPosition){
 
-        findTailRecursively(previousPosition,);
+        int[] endOfSnake = new int[3];
+        if((currentPosition[0]>0) && (game[currentPosition[0] + 1][currentPosition[1]]) && (currentPosition[0] != previousPosition[0] && currentPosition[1] != previousPosition[1])){
+            recursiveChecks++;
+            previousPosition[0] = currentPosition[0];
+            previousPosition[1] = currentPosition[1];
+
+            currentPosition[0] = currentPosition[0] + 1;
+            return findTailRecursively(currentPosition, previousPosition);
+        }
+        else if((currentPosition[0] > game.length) && (game[currentPosition[0] - 1][currentPosition[1]]) && (currentPosition[0] != previousPosition[0] && currentPosition[1] != previousPosition[1])){
+            recursiveChecks++;
+            previousPosition[0] = currentPosition[0];
+            previousPosition[1] = currentPosition[1];
+
+            currentPosition[1] = currentPosition[1] - 1;
+            return findTailRecursively(currentPosition, previousPosition);
+        }
+        else if((currentPosition[1] > 0) && (game[currentPosition[0]][currentPosition[1] - 1]) && (currentPosition[0] != previousPosition[0] && currentPosition[1] != previousPosition[1])){
+            recursiveChecks++;
+            previousPosition[0] = currentPosition[0];
+            previousPosition[1] = currentPosition[1];
+
+            currentPosition[0] = currentPosition[1] - 1;
+            return findTailRecursively(currentPosition, previousPosition);
+        }
+        else if((currentPosition[1] > game.length) && (game[currentPosition[0]][currentPosition[1] + 1]) && (currentPosition[0] != previousPosition[0] && currentPosition[1] != previousPosition[1])){
+            recursiveChecks++;
+            previousPosition[0] = currentPosition[0];
+            previousPosition[1] = currentPosition[1];
+
+            currentPosition[0] = currentPosition[0] + 1;
+            return findTailRecursively(currentPosition, previousPosition);
+        }
+        else {
+            endOfSnake[0] = currentPosition[0];
+            endOfSnake[1] = currentPosition[1];
+            endOfSnake[2] = recursiveChecks;
+            return endOfSnake;
+        }
     }
     private void resetCounter(){
         exhaustiveChecks = 0;
