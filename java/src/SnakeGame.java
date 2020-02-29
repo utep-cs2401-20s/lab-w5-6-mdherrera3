@@ -40,7 +40,7 @@ public class SnakeGame {
                             counter++;
                         }
                     }
-                    else if(i == 0 && q == game[i].length){
+                    else if(i == 0 && q == game[i].length - 1){
                         if (this.game[i +1][q]) {
                             counter++;
                         }
@@ -48,7 +48,7 @@ public class SnakeGame {
                             counter++;
                         }
                     }
-                    else if(i == game.length - 1 && q == game[i].length){
+                    else if(i == game.length - 1 && q == game[i].length - 1){
                         if (this.game[i - 1][q]) {
                             counter++;
                         }
@@ -132,6 +132,7 @@ public class SnakeGame {
     public int[] findTailRecursive(){
         resetCounter();
         int[] tail = findTailRecursively(headPosition,headPosition);
+        System.out.print(getRecursiveChecks());
         return tail;
     }
     private int[] findTailRecursively(int[] currentPosition, int[] previousPosition){
